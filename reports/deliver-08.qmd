@@ -1,0 +1,564 @@
+---
+title: Deliverable 8
+date: last-modified
+author:
+    - name: Alexa Lauer
+      email: lauera@vcu.edu
+format:
+    html:
+        embed-resources: true
+        html-math-method: katex
+        theme: spacelab
+
+---
+
+## Project Overview
+
+This project focuses on creating a comprehensive database to track upcoming movies, TV shows, and related events, specifically within the Virginia region. The goal is to centralize access to this information, allowing users to discover content tailored to their interests while addressing the current lack of localized resources for event tracking. By connecting various entities—such as production companies, users, and event organizers—this database aims to enhance community engagement and streamline the exploration of the entertainment landscape.
+
+## Key Deliverables 
+
+### Pitch Video URL
+
+[Watch the Pitch Video](https://www.youtube.com/watch?v=0nnSMWsvWzw)
+
+### Design Video URL 
+
+[Watch the Design Video](https://www.youtube.com/watch?v=-BSVYq9oQi8)
+
+### GitHub repository URL 
+
+[View the GitHub Repository](https://github.com/cmsc-vcu/cmsc408-fa2024-proj-last-minute)
+
+## Problem Description 
+
+### Problem Domain 
+
+The entertainment industry is a constantly evolving domain, with new movies, TV shows, and events being released or organized regularly. For fans, staying updated on upcoming releases, local screenings, and events like fan conventions can be a time-consuming task.In the current landscape, there is no comprehensive database that organizes all of this information in one place, particularly with a focus on local events in regions like Virginia.
+
+Historically, film-related databases began with institutions focused on preserving and cataloging film archives, such as those managed by the International Federation of Film Archives (FIAF), which allowed researchers and curators to access audiovisual collections for restoration and programming purposes. Over time, the scope of these databases has expanded to serve broader audiences, including casual moviegoers and industry professionals​ FIAF. While global databases like these provide important resources, many fail to capture the local, regional nuances that audiences seek, such as upcoming movie premieres, special screenings, or fan conventions in specific areas like Virginia.
+
+This lack of a centralized platform means that users often have to scour the internet, visiting multiple sources to find out when and where these events are happening. There is a clear need for a powerful tool that allows users to easily explore, discover, and stay informed about upcoming entertainment events at a local level.
+
+### Need 
+
+In today’s entertainment landscape, there is a growing demand for a centralized platform that consolidates information about upcoming movies, TV shows, and related events, especially on a local level. Currently, users must navigate multiple platforms and websites to find information about specific films or events, which can be time-consuming and inefficient. This database addresses the need for centralized information access, bringing all relevant details about upcoming releases and local events into one easily navigable resource.
+
+By organizing data in a structured way, this platform will provide a clear connection between related data points, allowing users to discover new content based on their interests. For instance, users interested in a specific movie can also find out about local screenings, premieres, or related events nearby. This feature promotes exploration and helps users discover new content tied to their preferences.
+
+Additionally, the database will foster user interaction by encouraging engagement with the platform through features that promote community building, such as reviews, discussions, and recommendations based on user activity. The lack of such a tool currently leaves a gap in the market for users who want to stay informed about upcoming entertainment in a specific region, like Virginia, without the hassle of extensive searching.
+
+This database fills this gap, providing an all-in-one solution that enhances the user experience and allows for personalized content exploration in the entertainment space.
+
+### Context, Scope and Perspective 
+
+The database is designed to serve the general public, specifically targeting anyone interested in upcoming movies, TV shows, and related events. It aims to provide a user-friendly platform for film enthusiasts, casual viewers, and event-goers who wish to stay informed about the latest offerings in the entertainment industry, particularly within the Virginia area. The scope of this project encompasses not only current and upcoming media releases but also relevant local events, such as premieres, screenings, and fan conventions.
+
+By localizing this information, the database fills a crucial gap in the market, allowing users to access a wealth of details in one central location rather than scouring multiple platforms. This perspective focuses on enhancing the user experience by facilitating content discovery and engagement, ultimately building a community of film and TV aficionados who share a passion for entertainment. In this way, the database represents the collective interests of fans and consumers, fostering a deeper connection between viewers and the content they love.
+
+### User Roles and Use Cases 
+
+The database will cater to several user roles, each with distinct needs and interaction methods:
+
+1. **General Public/Fans**:
+    - **Needs**: Access to information on upcoming movies, TV shows, and local events. They seek a centralized platform to explore their interests without extensive searching.
+    - **Usage**: Fans can search for new releases, read event details, and check local screening schedules. They may also leave reviews and engage with other users.
+2. **Event Organizers**:
+    - **Needs**: A platform to list and manage details for upcoming events like premieres or conventions.
+    - **Usage**: Organizers can input and update event information, helping them promote their activities effectively.
+
+
+
+### Security and Privacy 
+
+In designing the database, several security and privacy concerns must be addressed to protect user information and maintain the integrity of the data. Here are key considerations:
+
+1. **User Authentication**: Implementing robust user authentication mechanisms is essential to ensure that only authorized individuals can access the database. This can include:
+    - **Secure Password Policies**: Enforcing strong password requirements and regular password updates can help mitigate unauthorized access
+    - **Database Encryption**: Using encryption techniques to secure stored data, making it unreadable without proper decryption keys.
+2. Establishing strict access controls is necessary to limit who can view or modify data within the database. This can be achieved through:
+    - **Role-Based Access Control (RBAC)**: Assigning permissions based on user roles (e.g., general public, event organizers) to ensure that users can only access the information pertinent to their needs.
+3. User Data Privacyer data is handled in compliance with relevant privacy regulations (e.g., GDPR, CCPA) is essential. This includes:
+    - **Data Minimization**: Collecting only the information necessary for the intended purpose and informing users about what data is collected and how it will be used.
+    - **User Consent**: Implementing mechanisms for users to give consent for their data to be stored and processed, along with options for them to withdraw consent at any time.
+
+By addressing these security and privacy the database can provide a safe environment for users while fostering trust and encouraging engagement.
+
+
+
+
+## Database Design 
+
+### Entity-relationship Diagram 
+
+```{mermaid}
+erDiagram
+    MOVIES {
+        int MovieID PK
+        string Title
+        date PublicReleaseDate
+        date TheatricalReleaseDate
+        string Director
+        int GenreID FK
+        float Rating
+        string AgeRating
+        string SpecialInformation
+    }
+    
+    TV_SHOWS {
+        int ShowID PK
+        string Title
+        date PremierDate
+        date UpcomingReleaseDate
+        int Seasons
+        int Episodes
+        int GenreID FK
+        float Rating
+        string AgeRating
+        string Showrunner
+        string SpecialInformation
+    }
+    
+    GENRES {
+        int GenreID PK
+        string Name
+        string Description
+    }
+    
+    REVIEWS {
+        int ReviewID PK
+        float Rating
+        string Comments
+        int UserID FK
+    }
+    
+    USERS {
+        int UserID PK
+        string Name
+        string Email
+        date RegistrationDate
+    }
+    
+    LOCATIONS {
+        int LocationID PK
+        string LocationName
+        string Address
+        string VenueURLDescription
+        int Capacity
+        string Type
+        string SpecialInformation
+    }
+    
+    CAST {
+        int CastID PK
+        string Name
+        string Role
+        date DateOfBirth
+        string HometownCountry
+        string SpecialInformation
+    }
+    
+    EVENTS {
+        int EventID PK
+        string Name
+        date Date
+        int LocationID FK
+        string Description
+        string AgeRating
+        string SpecialInformation
+    }
+
+    MOVIES ||--o{ GENRES : belongs_to
+    MOVIES ||--o{ REVIEWS : has
+    MOVIES ||--o{ CAST : features
+    MOVIES ||--o{ EVENTS : related_to
+
+    TV_SHOWS ||--o{ GENRES : belongs_to
+    TV_SHOWS ||--o{ REVIEWS : has
+    TV_SHOWS ||--o{ CAST : features
+    TV_SHOWS ||--o{ EVENTS : related_to
+
+    GENRES ||--o{ MOVIES : has
+    GENRES ||--o{ TV_SHOWS : has
+
+    REVIEWS ||--o{ USERS : written_by
+    REVIEWS ||--o{ MOVIES : reviews
+    REVIEWS ||--o{ TV_SHOWS : reviews
+
+    USERS ||--o{ REVIEWS : writes
+
+    LOCATIONS ||--o{ EVENTS : hosts
+
+    CAST ||--o{ MOVIES : acts_in
+    CAST ||--o{ TV_SHOWS : appears_in
+    CAST ||--o{ EVENTS : attends
+
+    EVENTS ||--o{ MOVIES : features
+    EVENTS ||--o{ TV_SHOWS : features
+    EVENTS ||--o{ CAST : involves
+    EVENTS ||--o{ LOCATIONS : takes_place_at
+
+```
+
+#### Design Considerations 
+- **Interconnectedness**: The design allows for seamless connections between entities, enabling users to easily find related content. For example, a user can see all movies or TV shows associated with a specific genre, as well as reviews related to those titles.
+
+- **Normalization**: The database is structured to reduce data redundancy. For instance, genres are maintained in a separate entity, which both movies and TV shows can reference, enhancing data integrity.
+
+- **Scalability**: The inclusion of events and locations allows for future expansion. If new features or entities are needed, the current design can accommodate them without major restructuring.
+
+#### Trade Offs 
+- **Complexity**: The many-to-many relationships between entities like Cast and Movies, as well as Events and Movies, add complexity to the database. This requires careful handling to ensure data integrity and proper querying.
+
+- **Query Performance**: With multiple relationships, querying the database may be more complex and potentially slower, especially with join operations across many entities. Optimizing performance may involve indexing frequently accessed fields.
+
+### Relational Schemas 
+
+#### Movies 
+Attributes:
+
+- MovieID (INTEGER, PK)
+- Title (VARCHAR(255), NOT NULL)
+- PublicReleaseDate (DATE, NOT NULL)
+- TheatricalReleaseDate (DATE)
+- Director (VARCHAR(255))
+- GenreID (INTEGER, FK references Genres(GenreID), NOT NULL)
+- Rating (INTEGER, CHECK (Rating BETWEEN 1 AND 5))
+- AgeRating (VARCHAR(5), CHECK (AgeRating IN ('G', 'PG', 'PG-13', 'R', 'NC-17')), NOT NULL))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- MovieID is the Primary Key
+- GenreID is a Foreign Key referencing Genres
+- Rating must be between 1 and 5
+- AgeRating is restricted to specific letter ratings
+
+#### TV Shows 
+Attributes:
+
+- ShowID (INTEGER, PK)
+- Title (VARCHAR(255), NOT NULL)
+- PremierDate (DATE, NOT NULL)
+- UpcomingReleaseDate (DATE)
+- Seasons (INTEGER)
+- Episodes (INTEGER)
+- GenreID (INTEGER, FK references Genres(GenreID), NOT NULL)
+- Rating (INTEGER, CHECK (Rating BETWEEN 1 AND 5))
+- AgeRating (VARCHAR(5), CHECK (AgeRating IN ('G', 'PG', 'PG-13', 'R', 'NC-17')), NOT NULL)
+- Showrunner (VARCHAR(255))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- ShowID is the Primary Key
+- GenreID is a Foreign Key referencing Genres
+- Rating must be between 1 and 5
+- AgeRating is restricted to specific letter ratings
+
+#### Genres 
+Attributes:
+
+- GenreID (INTEGER, PK)
+- Name (VARCHAR(100), NOT NULL, UNIQUE)
+- Description (TEXT)
+
+Constraints:
+
+- GenreID is the Primary Key
+- Name must be unique
+
+#### Reviews 
+Attributes:
+
+- ReviewID (INTEGER, PK)
+- Rating (INTEGER, CHECK (Rating BETWEEN 1 AND 5), NOT NULL)
+- Comments (TEXT)
+- UserID (INTEGER, FK references Users(UserID), NOT NULL)
+- MovieID (INTEGER, FK references Movies(MovieID))
+- ShowID (INTEGER, FK references TV_Shows(ShowID))
+
+Constraints:
+
+- ReviewID is the Primary Key
+- Rating must be between 1 and 5
+- UserID is a Foreign Key referencing Users
+- MovieID or ShowID is a Foreign Key (one must be filled)
+
+#### Users 
+Attributes:
+
+- UserID (INTEGER, PK)
+- Name (VARCHAR(255), NOT NULL)
+- Email (VARCHAR(255), UNIQUE, NOT NULL)
+- RegistrationDate (DATE, NOT NULL)
+
+Constraints:
+
+- UserID is the Primary Key
+- Email must be unique
+
+#### Locations 
+Attributes:
+
+- LocationID (INTEGER, PK)
+- LocationName (VARCHAR(255), NOT NULL)
+- Address (TEXT)
+- VenueURL (VARCHAR(255))
+- Capacity (INTEGER)
+- Type (VARCHAR(100), CHECK (Type IN ('Movie Theater', 'Convention Hall', 'Other')))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- LocationID is the Primary Key
+- Type is limited to predefined values
+
+#### Cast 
+Attributes:
+
+- CastID (INTEGER, PK)
+- Name (VARCHAR(255), NOT NULL)
+- Role (VARCHAR(255))
+- DateOfBirth (DATE)
+- Hometown (VARCHAR(255))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- CastID is the Primary Key
+
+#### Events
+Attributes:
+
+- EventID (INTEGER, PK)
+- Name (VARCHAR(255), NOT NULL)
+- Date (DATE, NOT NULL)
+- LocationID (INTEGER, FK references Locations(LocationID), NOT NULL)
+- Description (TEXT)
+- AgeRating (VARCHAR(5), CHECK (AgeRating IN ('G', 'PG', 'PG-13', 'R', 'NC-17')), NOT NULL)
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- EventID is the Primary Key
+- LocationID is a Foreign Key referencing Locations
+- AgeRating is restricted to letter-based values
+
+### Functional Dependencies and Normalization
+
+### Queries 
+
+#### General Queries 
+
+1. **List all the movies in a particular genre**
+    
+    $\pi_{\text{Title}} (\sigma_{\text{Genres.Name = 'Action'}}(Movies \bowtie Genres))$
+
+2. **Display all TV shows that have a rating of 4 or higher.**
+    
+    $\pi_{\text{Title}} (\sigma_{\text{Rating} \geq 4}(TV\_Shows))$
+
+3. **Find all movies released in the last year.**
+
+   $\pi_{\text{Title}} (\sigma_{\text{PublicReleaseDate} > \text{(CURRENT\_DATE - INTERVAL '1 YEAR')}}(Movies))$
+
+4. **Show all events happening at a particular location.**
+   
+   $\pi_{\text{EventID, Name}} (\sigma_{\text{Location.Name = 'AMC Theater'}}(Events \bowtie Locations))$
+
+5. **List all movies that are linked to a specific cast member.**
+   
+   $\pi_{\text{Movies.Title}} (\sigma_{\text{Cast.Name = 'Leonardo DiCaprio'}}(Movies \bowtie Cast))$
+
+#### User Queries 
+
+6. **Find all reviews written by a specific user.**
+   
+   $\pi_{\text{ReviewID, Rating, Comments}} (\sigma_{\text{Users.Name = 'John Doe'}}(Reviews \bowtie Users))$
+
+7. **Show all events a specific user has reviewed.**
+   
+   $\pi_{\text{Events.Name, Rating}} (\sigma_{\text{Users.Name = 'Jane Smith'}}((Events \bowtie Reviews) \bowtie Users))$
+
+8. **List the upcoming release dates of TV shows a user is following.**
+
+   $\pi_{\text{Title, UpcomingReleaseDate}} (\sigma_{\text{Users.UserID} = 101}(TV\_Shows \bowtie Reviews \bowtie Users))$
+   
+#### Admin Queries 
+
+9. **List the most popular genres based on the number of associated movies.**
+  
+    $\gamma_{\text{Genres.Name}, \text{count(Title) -> TotalMovies}}(Movies \bowtie Genres)$
+
+10. **Show the most common rating for all movies in a particular genre.**
+   
+    $\gamma_{\text{Genres.Name}, \text{avg(Rating)}} (\sigma_{\text{Genres.Name = 'Drama'}}(Movies \bowtie Genres))$
+
+11. **Display all TV shows that haven't received any reviews.**
+   
+    $\pi_{\text{Title}}(TV\_Shows) - \pi_{\text{Title}}(TV\_Shows \bowtie Reviews)$
+
+12. **Find all locations with a capacity greater than 500.**
+   
+    $\pi_{\text{LocationName}} (\sigma_{\text{Capacity} > 500}(Locations))$
+
+13. **Show the total number of events hosted at each location.**
+
+    $\gamma_{\text{LocationName}, \text{count(EventID)}}(Events \bowtie Locations)$
+   
+#### Exploration Queries
+
+14. **Discover new movies in a user's favorite genres.**
+   
+    $\pi_{\text{Movies.Title}} (\sigma_{\text{Genres.GenreID} \in (\pi_{\text{GenreID}}(Reviews \bowtie Users))}(Movies \bowtie Genres))$
+
+15. **List all cast members who have worked on both movies and TV shows.**
+   
+    $\pi_{\text{Cast.Name}}(Movies \bowtie Cast) \cap \pi_{\text{Cast.Name}}(TV\_Shows \bowtie Cast)$
+
+16. **Find TV shows directed by the same person who directed a specific movie.**
+
+    $\pi_{\text{TV\_Shows.Title}}(\sigma_{\text{Movies.Title = 'Inception'}}(Movies \bowtie TV\_Shows \bowtie \sigma_{\text{Director = Showrunner}}))$
+   
+#### Event-Specific Queries
+
+17. **List all events for a specific movie.**
+   
+    $\pi_{\text{EventID, Name}} (\sigma_{\text{Movies.Title = 'The Dark Knight'}}(Events \bowtie Movies))$
+
+18. **Show all upcoming events that will feature a specific cast member.**
+
+    $\pi_{\text{Events.Name, Date}} (\sigma_{\text{Cast.Name = 'Emma Stone'}}(Events \bowtie Cast))$
+
+#### Interaction Queries 
+
+19. **Find all users who have reviewed a specific TV show.**
+    
+    $\pi_{\text{Users.Name}} (\sigma_{\text{TV\_Shows.Title = 'Stranger Things'}}(Reviews \bowtie Users \bowtie TV\_Shows))$
+
+20. **Show all reviews made by users within a specific date range.**
+    
+    $\pi_{\text{ReviewID, Rating, Comments}} (\sigma_{\text{Reviews.Date} BETWEEN '2024-01-01' AND '2024-12-31'}(Reviews))$
+
+### Sample Data 
+
+#### Movies 
+
+| Movie_ID | Title            | Public_Release_Date | Theatrical_Release_Date | Director      | Genre_ID | Rating | Age_Rating | Special_Info  |
+|----------|------------------|---------------------|-------------------------|---------------|----------|--------|------------|---------------|
+| 1        | Beyond the Stars  | 2024-06-15          | 2024-06-20              | A. Scott      | 2        | 4.5    | PG-13      | Sci-fi feature|
+| 2        | Echoes of Time    | 2023-10-05          | 2023-10-10              | K. Rivers     | 1        | 4.0    | PG-13      | Time travel   |
+| 3        | Mystic Falls      | 2024-02-10          | 2024-02-14              | B. Lee        | 3        | 4.8    | PG         | Romance drama |
+| 4        | Quantum Leap      | 2023-09-15          | 2023-09-18              | T. Adams      | 4        | 3.9    | PG-13      | Thriller      |
+| 5        | Galactic Front    | 2023-12-01          | 2023-12-05              | Z. Wu         | 2        | 4.7    | PG-13      | Space battle  |
+
+#### TV Shows 
+
+| Show_ID | Title              | Premier_Date | Upcoming_Release_Date | Seasons | Episodes | Genre_ID | Rating | Age_Rating | Showrunner   | Special_Info |
+|---------|--------------------|--------------|-----------------------|---------|----------|----------|--------|------------|--------------|--------------|
+| 1       | The Time Wanderer   | 2023-09-10   | 2024-01-15            | 2       | 24       | 1        | 4.5    | PG-13      | L. Nguyen    | Sci-fi       |
+| 2       | Hearts Unbroken     | 2023-08-05   | 2024-03-18            | 3       | 36       | 3        | 4.2    | PG         | M. Harper    | Drama        |
+| 3       | Ghost Riders        | 2022-11-12   | 2024-05-20            | 4       | 48       | 2        | 4.7    | PG-13      | C. Henson    | Mystery      |
+| 4       | Infinite Depths     | 2023-05-01   | 2024-04-01            | 1       | 12       | 4        | 4.1    | PG         | D. Clark     | Underwater   |
+| 5       | The Bright World    | 2023-10-25   | 2024-09-12            | 2       | 26       | 2        | 4.8    | PG-13      | E. Morales   | Fantasy      |
+
+#### Genres 
+
+| Genre_ID | Name        | Description                    |
+|----------|-------------|--------------------------------|
+| 1        | Sci-Fi      | Fiction based on futuristic concepts|
+| 2        | Fantasy     | Magic and supernatural elements|
+| 3        | Romance     | Love and emotional relationships|
+| 4        | Thriller    | Tension and excitement         |
+
+#### Reviews 
+
+| Review_ID | Rating | Comments                               | User_ID | Movie_ID | Show_ID |
+|-----------|--------|----------------------------------------|---------|----------|---------|
+| 1         | 4.5    | "Amazing visual effects!"              | 101     | 1        | NULL    |
+| 2         | 4.0    | "Intriguing plot, but slow pacing."    | 102     | NULL     | 1       |
+| 3         | 4.7    | "A gripping story with great acting!"  | 103     | 3        | NULL    |
+| 4         | 4.2    | "Engaging from start to finish!"       | 104     | NULL     | 2       |
+| 5         | 3.9    | "Good movie, but could be better."     | 105     | 2        | NULL    |
+
+#### Users 
+
+| User_ID | Name          | Email                  | Registration_Date |
+|---------|---------------|------------------------|-------------------|
+| 101     | Alice Johnson | alice.j@gmail.com       | 2023-05-01        |
+| 102     | Bob Smith     | bob.s@hotmail.com       | 2023-06-15        |
+| 103     | Carol Davis   | carol.d@vcu.edu         | 2023-07-10        |
+| 104     | David Lee     | david.l@gmail.com       | 2023-08-22        |
+| 105     | Eve Harris    | eve.h@yahoo.com         | 2023-09-05        |
+
+#### Locations 
+
+| Location_ID | Location_Name      | Address               | Venue_URL      | Capacity | Type           | Special_Info          |
+|-------------|--------------------|-----------------------|----------------|----------|----------------|-----------------------|
+| 1           | Grand Cinema       | 123 Main St, Richmond | grandcinema.com| 200      | Movie theater  | IMAX screen available |
+| 2           | Star Convention    | 456 Elm St, Norfolk   | starconv.com   | 1500     | Convention hall| Large event space     |
+| 3           | Galaxy Theater     | 789 Oak St, Roanoke   | galaxytheater.com| 300    | Movie theater  | Dolby Atmos sound     |
+| 4           | Capitol Venue      | 321 Pine St, Richmond | capitolvenue.com| 1200    | Convention hall| Historic site         |
+| 5           | Skyline Cinema     | 654 Willow St, VA Beach| skylinecinema.com| 250   | Movie theater  | Rooftop seating       |
+
+#### Cast 
+
+| Cast_ID | Name          | Role             | Date_of_Birth | Hometown        | Special_Info           |
+|---------|---------------|------------------|---------------|-----------------|------------------------|
+| 1       | John Doe      | Lead Actor       | 1985-07-12    | Los Angeles, CA | Award-winning actor     |
+| 2       | Jane Smith    | Supporting Actress| 1990-02-25   | New York, NY    | Known for action roles  |
+| 3       | Sam Wilson    | Director         | 1978-09-13    | Chicago, IL     | Nominated for an Oscar  |
+| 4       | Mary Johnson  | Lead Actress     | 1992-11-02    | London, UK      | Known for dramatic roles|
+| 5       | Peter Parker  | Cameo Appearance | 1975-05-30    | San Francisco, CA| Marvel franchise actor  |
+
+#### Events 
+
+| Event_ID | Name               | Date       | Location_ID | Description               | Age_Rating | Special_Info         |
+|----------|--------------------|------------|-------------|---------------------------|------------|----------------------|
+| 1        | Movie Premiere Night| 2024-03-10 | 1           | Special screening of new movie | PG-13      | Red carpet event      |
+| 2        | Comic Convention    | 2024-05-05 | 2           | Annual pop culture event       | PG         | Celebrity guests      |
+| 3        | Film Festival       | 2023-11-15 | 4           | Showcase of indie films        | PG-13      | Q&A with directors    |
+| 4        | Sci-Fi Expo         | 2024-02-20 | 2           | Sci-Fi themed convention       | PG         | Cosplay competition   |
+| 5        | Award Show          | 2024-04-25 | 5           | Annual award ceremony for films| PG-13      | Live musical performances|
+
+
+## Project Management 
+
+### Draft Project Schedule 
+
+| Deliverable    | Start Date | Due Date  |
+|----------------|------------|-----------|
+| Deliverable 1  | Aug 13     | Aug 23    |
+| Deliverable 2  | Aug 13     | Aug 25    |
+| Deliverable 3  | Aug 27     | Aug 30    |
+| Deliverable 4  | Sep 3      | Sep 6     |
+| Deliverable 5  | Aug 31     | Sep 15    |
+| Deliverable 6  | Sep 17     | Sep 20    |
+| Deliverable 7  | Oct 1      | Oct 4     |
+| Deliverable 8  | Sep 21     | Oct 13    |
+| Deliverable 9  | Oct 14     | Oct 20    |
+| Deliverable 10 | Oct 29     | Nov 1     |
+| Deliverable 11 | Nov 12     | Nov 15    |
+| Deliverable 12 | Oct 21     | Dec 9     |
+
+```{mermaid}
+gantt
+    title Deliverable Timeline
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b %d
+
+    section Deliverables
+    Deliverable 1  :done, d1, 2024-08-13, 2024-08-23
+    Deliverable 2  :done, d2, 2024-08-13, 2024-08-25
+    Deliverable 3  :done, d3, 2024-08-27, 2024-08-30
+    Deliverable 4  :done, 2024-09-03, 2024-09-06
+    Deliverable 5  :done, 2024-08-31, 2024-09-15
+    Deliverable 6  :done, 2024-09-17, 2024-09-20
+    Deliverable 7  :done, 2024-10-01, 2024-10-04
+    Deliverable 8  :active, 2024-09-21, 2024-10-13
+    Deliverable 9  :d9, 2024-10-14, 2024-10-20
+    Deliverable 10 :d10, 2024-10-29, 2024-11-01
+    Deliverable 11 :d11, 2024-11-12, 2024-11-15
+    Deliverable 12 :d12, 2024-10-21, 2024-12-09
+```

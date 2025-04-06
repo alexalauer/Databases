@@ -1,0 +1,717 @@
+---
+title: Deliverable 12
+date: last-modified
+author:
+    - name: Alexa Lauer
+      email: lauera@vcu.edu
+format:
+    html:
+        embed-resources: true
+        html-math-method: katex
+        theme: spacelab
+
+---
+
+
+## Project Overview
+
+This project focuses on creating a comprehensive database to track upcoming movies, TV shows, and related events, specifically within the Virginia region. The goal is to centralize access to this information, allowing users to discover content tailored to their interests while addressing the current lack of localized resources for event tracking. By connecting various entities—such as production companies, users, and event organizers—this database aims to enhance community engagement and streamline the exploration of the entertainment landscape.
+
+## Key Deliverables 
+
+### Pitch Video URL
+
+[Watch the Pitch Video](https://www.youtube.com/watch?v=0nnSMWsvWzw)
+
+### Design Video URL 
+
+[Watch the Design Video](https://www.youtube.com/watch?v=-BSVYq9oQi8)
+
+### Final Video URL
+
+[Watch the Final Video](https://www.youtube.com/watch?v=F0xzfBoDjA8)
+
+{{< video https://www.youtube.com/watch?v=F0xzfBoDjA8 >}}
+
+### GitHub repository URL 
+
+[View the GitHub Repository](https://github.com/cmsc-vcu/cmsc408-fa2024-proj-last-minute)
+
+## Problem Description 
+
+### Problem Domain 
+
+The entertainment industry is a constantly evolving domain, with new movies, TV shows, and events being released or organized regularly. For fans, staying updated on upcoming releases, local screenings, and events like fan conventions can be a time-consuming task.In the current landscape, there is no comprehensive database that organizes all of this information in one place, particularly with a focus on local events in regions like Virginia.
+
+Historically, film-related databases began with institutions focused on preserving and cataloging film archives, such as those managed by the International Federation of Film Archives (FIAF), which allowed researchers and curators to access audiovisual collections for restoration and programming purposes. Over time, the scope of these databases has expanded to serve broader audiences, including casual moviegoers and industry professionals​ FIAF. While global databases like these provide important resources, many fail to capture the local, regional nuances that audiences seek, such as upcoming movie premieres, special screenings, or fan conventions in specific areas like Virginia.
+
+This lack of a centralized platform means that users often have to scour the internet, visiting multiple sources to find out when and where these events are happening. There is a clear need for a powerful tool that allows users to easily explore, discover, and stay informed about upcoming entertainment events at a local level.
+
+### Need 
+
+In today’s entertainment landscape, there is a growing demand for a centralized platform that consolidates information about upcoming movies, TV shows, and related events, especially on a local level. Currently, users must navigate multiple platforms and websites to find information about specific films or events, which can be time-consuming and inefficient. This database addresses the need for centralized information access, bringing all relevant details about upcoming releases and local events into one easily navigable resource.
+
+By organizing data in a structured way, this platform will provide a clear connection between related data points, allowing users to discover new content based on their interests. For instance, users interested in a specific movie can also find out about local screenings, premieres, or related events nearby. This feature promotes exploration and helps users discover new content tied to their preferences.
+
+Additionally, the database will foster user interaction by encouraging engagement with the platform through features that promote community building, such as reviews, discussions, and recommendations based on user activity. The lack of such a tool currently leaves a gap in the market for users who want to stay informed about upcoming entertainment in a specific region, like Virginia, without the hassle of extensive searching.
+
+This database fills this gap, providing an all-in-one solution that enhances the user experience and allows for personalized content exploration in the entertainment space.
+
+### Context, Scope and Perspective 
+
+The database is designed to serve the general public, specifically targeting anyone interested in upcoming movies, TV shows, and related events. It aims to provide a user-friendly platform for film enthusiasts, casual viewers, and event-goers who wish to stay informed about the latest offerings in the entertainment industry, particularly within the Virginia area. The scope of this project encompasses not only current and upcoming media releases but also relevant local events, such as premieres, screenings, and fan conventions.
+
+By localizing this information, the database fills a crucial gap in the market, allowing users to access a wealth of details in one central location rather than scouring multiple platforms. This perspective focuses on enhancing the user experience by facilitating content discovery and engagement, ultimately building a community of film and TV aficionados who share a passion for entertainment. In this way, the database represents the collective interests of fans and consumers, fostering a deeper connection between viewers and the content they love.
+
+### User Roles and Use Cases 
+
+The database will cater to several user roles, each with distinct needs and interaction methods:
+
+1. **General Public/Fans**:
+    - **Needs**: Access to information on upcoming movies, TV shows, and local events. They seek a centralized platform to explore their interests without extensive searching.
+    - **Usage**: Fans can search for new releases, read event details, and check local screening schedules. They may also leave reviews and engage with other users.
+2. **Event Organizers**:
+    - **Needs**: A platform to list and manage details for upcoming events like premieres or conventions.
+    - **Usage**: Organizers can input and update event information, helping them promote their activities effectively.
+
+
+
+### Security and Privacy 
+
+In designing the database, several security and privacy concerns must be addressed to protect user information and maintain the integrity of the data. Here are key considerations:
+
+1. **User Authentication**: Implementing robust user authentication mechanisms is essential to ensure that only authorized individuals can access the database. This can include:
+    - **Secure Password Policies**: Enforcing strong password requirements and regular password updates can help mitigate unauthorized access
+    - **Database Encryption**: Using encryption techniques to secure stored data, making it unreadable without proper decryption keys.
+2. Establishing strict access controls is necessary to limit who can view or modify data within the database. This can be achieved through:
+    - **Role-Based Access Control (RBAC)**: Assigning permissions based on user roles (e.g., general public, event organizers) to ensure that users can only access the information pertinent to their needs.
+3. User Data Privacyer data is handled in compliance with relevant privacy regulations (e.g., GDPR, CCPA) is essential. This includes:
+    - **Data Minimization**: Collecting only the information necessary for the intended purpose and informing users about what data is collected and how it will be used.
+    - **User Consent**: Implementing mechanisms for users to give consent for their data to be stored and processed, along with options for them to withdraw consent at any time.
+
+By addressing these security and privacy the database can provide a safe environment for users while fostering trust and encouraging engagement.
+
+## Database Design 
+
+### Entity-relationship Diagram 
+
+Sorry it is so small, there are a lot of tables in the database.
+
+```{mermaid}
+erDiagram
+    MOVIES {
+        int MovieID PK
+        string Title
+        date PublicReleaseDate
+        date TheatricalReleaseDate
+        string Director
+        float Rating
+        string AgeRating
+        string Information
+    }
+    
+    TV_SHOWS {
+        int ShowID PK
+        string Title
+        date PremierDate
+        date UpcomingReleaseDate
+        int Seasons
+        int Episodes
+        float Rating
+        string AgeRating
+        string Showrunner
+        string Information
+    }
+    
+    GENRES {
+        int GenreID PK
+        string Name
+        string Description
+    }
+    
+    REVIEWS {
+        int ReviewID PK
+        float Rating
+        string Comments
+        int UserID FK
+        int MovieID FK
+        int ShowID FK
+    }
+    
+    USERS {
+        int UserID PK
+        string Name
+        string Email
+        date RegistrationDate
+    }
+    
+    LOCATIONS {
+        int LocationID PK
+        string LocationName
+        string Address
+        string VenueURLDescription
+        int Capacity
+        string Type
+        string Information
+    }
+    
+    CAST {
+        int CastID PK
+        string Name
+        string Role
+        date DateOfBirth
+        string HometownCountry
+        string Information
+    }
+    
+    EVENTS {
+        int EventID PK
+        string Name
+        date Date
+        int LocationID FK
+        string Description
+        string AgeRating
+        string Information
+    }
+
+    MOVIE_CAST {
+        int MovieCastID PK
+        int MovieID FK
+        int CastID fk
+        string role
+    }
+
+    SHOW_CAST {
+        int ShowCastID PK
+        int ShowID FK
+        int CastID fk
+        string role
+    }
+
+    CAST_EVENTS {
+        int CastEventsID PK
+        int CastID FK
+        int EventID FK
+    }
+
+    MOVIE_EVENTS {
+        int MovieEventsID PK
+        int MovieID FK
+        int EventID FK
+    }
+
+    SHOW_EVENTS {
+        int ShowEventsID PK
+        int ShowID FK
+        int EventID FK
+    }
+
+    MOVIE_GENRE {
+        int MovieGenreID PK
+        int MovieID FK
+        int GenreID FK
+    }
+
+    SHOW_GENRE {
+        int ShowGenreID PK
+        int ShowID FK
+        int GenreID FK
+    }
+
+    EVENT_LOCATION {
+        int EventLocationID PK
+        int EventID FK
+        int LocationID FK
+    }
+
+    MOVIES ||--o{ MOVIE_GENRE : has
+    MOVIES ||--o{ MOVIE_CAST : features
+    MOVIES ||--o{ MOVIE_EVENTS : related_to
+
+    TV_SHOWS ||--o{ SHOW_GENRE : has
+    TV_SHOWS ||--o{ SHOW_CAST : features
+    TV_SHOWS ||--o{ SHOW_EVENTS : related_to
+
+    GENRES ||--o{ MOVIE_GENRE : has
+    GENRES ||--o{ SHOW_GENRE : has
+
+    REVIEWS ||--o{ MOVIES : reviews
+    REVIEWS ||--o{ TV_SHOWS : reviews
+    REVIEWS ||--o{ USERS : written_by
+
+    USERS ||--o{ REVIEWS : writes
+
+    LOCATIONS ||--o{ EVENT_LOCATION : hosts
+
+    CAST ||--o{ MOVIE_CAST : acts_in
+    CAST ||--o{ SHOW_CAST : appears_in
+    CAST ||--o{ CAST_EVENTS : attends
+
+    EVENTS ||--o{ MOVIE_EVENTS : features
+    EVENTS ||--o{ SHOW_EVENTS : features
+    EVENTS ||--o{ CAST_EVENTS : involves
+    EVENTS ||--o{ EVENT_LOCATION : takes_place_at
+
+```
+
+#### Design Considerations 
+- **Interconnectedness**: The design allows for seamless connections between entities, enabling users to easily find related content. For example, a user can see all movies or TV shows associated with a specific genre, as well as reviews related to those titles.
+
+- **Normalization**: The database is structured to reduce data redundancy. For instance, genres are maintained in a separate entity, which both movies and TV shows can reference, enhancing data integrity.
+
+- **Scalability**: The inclusion of events and locations allows for future expansion. If new features or entities are needed, the current design can accommodate them without major restructuring.
+
+#### Trade Offs 
+- **Complexity**: The many-to-many relationships between entities like Cast and Movies, as well as Events and Movies, add complexity to the database. This requires careful handling to ensure data integrity and proper querying.
+
+- **Query Performance**: With multiple relationships, querying the database may be more complex and potentially slower, especially with join operations across many entities. Optimizing performance may involve indexing frequently accessed fields.
+
+### Relational Schemas 
+
+#### Movies 
+Attributes:
+
+- MovieID (INTEGER, PK)
+- Title (VARCHAR(255), NOT NULL)
+- PublicReleaseDate (DATE, NOT NULL)
+- TheatricalReleaseDate (DATE)
+- Director (VARCHAR(255))
+- Rating (INTEGER, CHECK (Rating BETWEEN 1 AND 5))
+- AgeRating (VARCHAR(5), CHECK (AgeRating IN ('G', 'PG', 'PG-13', 'R', 'NC-17')), NOT NULL))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- MovieID is the Primary Key
+- Rating must be between 1 and 5
+- AgeRating is restricted to specific letter ratings
+
+#### TV Shows 
+Attributes:
+
+- ShowID (INTEGER, PK)
+- Title (VARCHAR(255), NOT NULL)
+- PremierDate (DATE, NOT NULL)
+- UpcomingReleaseDate (DATE)
+- Seasons (INTEGER)
+- Episodes (INTEGER)
+- Rating (INTEGER, CHECK (Rating BETWEEN 1 AND 5))
+- AgeRating (VARCHAR(5), CHECK (AgeRating IN ('G', 'PG', 'PG-13', 'R', 'NC-17')), NOT NULL)
+- Showrunner (VARCHAR(255))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- ShowID is the Primary Key
+- Rating must be between 1 and 5
+- AgeRating is restricted to specific letter ratings
+
+#### Genres 
+Attributes:
+
+- GenreID (INTEGER, PK)
+- Name (VARCHAR(100), NOT NULL, UNIQUE)
+- Description (TEXT)
+
+Constraints:
+
+- GenreID is the Primary Key
+- Name must be unique
+
+#### Reviews 
+Attributes:
+
+- ReviewID (INTEGER, PK)
+- Rating (INTEGER, CHECK (Rating BETWEEN 1 AND 5), NOT NULL)
+- Comments (TEXT)
+- UserID (INTEGER, FK references Users(UserID), NOT NULL)
+- MovieID (INTEGER, FK references Movies(MovieID))
+- ShowID (INTEGER, FK references TV_Shows(ShowID))
+
+Constraints:
+
+- ReviewID is the Primary Key
+- Rating must be between 1 and 5
+- UserID is a Foreign Key referencing Users
+- MovieID or ShowID is a Foreign Key (one must be filled)
+
+#### Users 
+Attributes:
+
+- UserID (INTEGER, PK)
+- Name (VARCHAR(255), NOT NULL)
+- Email (VARCHAR(255), UNIQUE, NOT NULL)
+- RegistrationDate (DATE, NOT NULL)
+
+Constraints:
+
+- UserID is the Primary Key
+- Email must be unique
+
+#### Locations 
+Attributes:
+
+- LocationID (INTEGER, PK)
+- LocationName (VARCHAR(255), NOT NULL)
+- Address (TEXT)
+- VenueURL (VARCHAR(255))
+- Capacity (INTEGER)
+- Type (VARCHAR(100), CHECK (Type IN ('Movie Theater', 'Convention Hall', 'Other')))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- LocationID is the Primary Key
+- Type is limited to predefined values
+
+#### Cast 
+Attributes:
+
+- CastID (INTEGER, PK)
+- Name (VARCHAR(255), NOT NULL)
+- Role (VARCHAR(255))
+- DateOfBirth (DATE)
+- Hometown (VARCHAR(255))
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- CastID is the Primary Key
+
+#### Events
+Attributes:
+
+- EventID (INTEGER, PK)
+- Name (VARCHAR(255), NOT NULL)
+- Date (DATE, NOT NULL)
+- Description (TEXT)
+- AgeRating (VARCHAR(5), CHECK (AgeRating IN ('G', 'PG', 'PG-13', 'R', 'NC-17')), NOT NULL)
+- SpecialInformation (TEXT)
+
+Constraints:
+
+- EventID is the Primary Key
+- AgeRating is restricted to letter-based values
+
+### Movie-Cast
+Attributes:
+
+- `MovieCastID` (INTEGER, PK)
+- `MovieID` (INTEGER, FK references `Movies(MovieID)`, NOT NULL)
+- `CastID` (INTEGER, FK references `Cast(CastID)`, NOT NULL)
+- `Role` (VARCHAR(255))
+
+Constraints:
+
+- `MovieCastID` is the Primary Key  
+- `MovieID` and `CastID` are Foreign Keys  
+- `Role` is not mandatory but can be included
+
+### Show-Cast  
+Attributes:
+
+- `ShowCastID` (INTEGER, PK)
+- `ShowID` (INTEGER, FK references `TV_Shows(ShowID)`, NOT NULL)
+- `CastID` (INTEGER, FK references `Cast(CastID)`, NOT NULL)
+- `Role` (VARCHAR(255))
+
+Constraints:
+
+- `ShowCastID` is the Primary Key  
+- `ShowID` and `CastID` are Foreign Keys  
+- `Role` is not mandatory but can be included
+
+### **Cast-Events**  
+Attributes:
+
+- `CastEventsID` (INTEGER, PK)
+- `CastID` (INTEGER, FK references `Cast(CastID)`, NOT NULL)
+- `EventID` (INTEGER, FK references `Events(EventID)`, NOT NULL)
+
+Constraints:
+- `CastEventsID` is the Primary Key  
+- `CastID` and `EventID` are Foreign Keys
+
+### Movie-Event  
+Attributes:
+
+- `MovieEventID` (INTEGER, PK)
+- `MovieID` (INTEGER, FK references `Movies(MovieID)`, NOT NULL)
+- `EventID` (INTEGER, FK references `Events(EventID)`, NOT NULL)
+
+Constraints:
+
+- `MovieEventID` is the Primary Key  
+- `MovieID` and `EventID` are Foreign Keys
+
+### Show-Event  
+Attributes:
+
+- `ShowEventID` (INTEGER, PK)
+- `ShowID` (INTEGER, FK references `TV_Shows(ShowID)`, NOT NULL)
+- `EventID` (INTEGER, FK references `Events(EventID)`, NOT NULL)
+
+Constraints:
+
+- `ShowEventID` is the Primary Key  
+- `ShowID` and `EventID` are Foreign Keys
+
+## Data Definition Language (DDL) Script Overview
+
+The DDL script provided in this section is used to create the tables for the database, define relationships, and establish constraints. It includes the creation of tables for movies, TV shows, users, genres, reviews, events, and related entities. The script ensures that the data structure is consistent and enforces business rules such as valid ratings and foreign key constraints.
+
+### DDL Script
+
+The DDL (Data Definition Language) script used to create the database structure includes the following key elements:
+- Creation of tables for **Movies**, **TV Shows**, **Genres**, **Reviews**, **Users**, **Locations**, and related linker tables.
+- Definitions for relationships between tables using foreign keys.
+- Data constraints such as primary keys, unique constraints, and not null constraints.
+
+#### Key Parts of the DDL Script
+
+##### Movies Table
+```sql
+CREATE TABLE Movies (
+    MovieID INT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    GenreID INT,
+    Rating DECIMAL(3, 1),
+    ReleaseDate DATE
+);
+```
+
+For the full DDL script, please refer to the [DDL Script File](../delivery-12/db/my-ddl.sql).
+
+## User Interface Design
+
+### 1. Overview
+The Movie Database Management System (MDMS) has been designed with a clean and user-friendly interface that enables users to efficiently manage movie data, including adding, updating, deleting, and retrieving movies, as well as generating detailed reports. The interface follows a responsive design principle, ensuring it adapts well to various screen sizes, including desktop, tablet, and mobile.
+
+### 2. General Layout
+- **Color Scheme:** 
+  - A soft blue background (`#f0f8ff`) has been chosen for readability and a professional, calm look. The interface is complemented by Bootstrap's default color palette for buttons, forms, and other UI elements.
+- **Typography:**
+  - The fonts are consistent and legible, with the primary font being the default Bootstrap font, providing a clean and modern appearance.
+
+### 3. Header and Navigation
+- **Main Title:**
+  - At the top of every page, the title of the system is displayed: **Movie Database Management System**. It provides immediate context to users about the purpose of the application.
+- **Home Button:**
+  - Positioned in the top-right corner, a fixed "Home" button links users back to the main dashboard (index page) from any page. The button is designed with a neutral gray (`btn btn-secondary`), so it stands out without being overly distracting.
+  - This button is accessible from every page, ensuring smooth navigation within the system.
+
+### 4. Main Dashboard (Index Page)
+- **Introduction Section:**
+  - Below the title, there is a welcoming introductory message. It provides a brief description of the purpose of the system: “Welcome to the Movie Database Management System! Use the options below to manage your database.”
+- **Card Layout:**
+  - The dashboard utilizes a responsive grid layout to present different actions users can take. Each action is represented by a card with a title, brief description, and a button leading to the relevant page.
+  - The main actions are:
+    1. **Add a New Movie** – Users can create a new movie record.
+    2. **View Movies** – Users can view, filter, and search movies in the database.
+    3. **Update a Movie** – Users can modify existing movie records.
+    4. **Delete a Movie** – Users can remove movie records.
+    5. **Generate Reports** – Users can view detailed reports and insights.
+
+    Each card is a 4-column grid item on larger screens and stacks vertically on smaller devices.
+
+### 5. Create, Update, and Delete Movie Pages
+- **Form Structure:**
+  - These pages use forms to allow users to input data for adding or modifying movies. 
+  - The form fields include:
+    - Movie Title
+    - Genre (dropdown list)
+    - Director
+    - Cast
+    - Release Date
+    - Rating
+    - Description
+  - For movie deletion, only the **Movie ID** is required.
+  
+  **Example Form for Creating/Updating a Movie:**
+  - A well-labeled form ensures users know what data to input.
+  - Input fields are grouped logically, with validation to ensure correct data entry (e.g., `required` attributes on all fields).
+
+- **Buttons:**
+  - Action buttons are prominently placed at the bottom of the form, such as **Save**, **Update**, and **Delete**.
+  - Buttons follow Bootstrap styles, such as `btn btn-success` for creating and `btn btn-danger` for deleting.
+
+### 6. Reports Page
+- **Dropdown Selection:**
+  - A dropdown menu allows users to select from a list of predefined SQL queries, categorized by type (e.g., **General Queries**, **User Queries**, **Admin Queries**).
+  - The user can select a query type and view the results directly on the page.
+  
+- **Query Results:**
+  - Results are displayed in a table format, with each column labeled according to the result set. If no results are found, a message is displayed to inform the user.
+  - Each table uses Bootstrap classes (`table table-bordered`) to ensure proper formatting.
+
+### 7. Responsive Design
+- **Mobile Optimization:**
+  - The UI has been designed to be mobile-friendly. The card layout on the dashboard collapses into a single column on smaller screens (tablet and mobile), ensuring users can still navigate easily.
+  - Input forms are designed to fit smaller screens, and buttons are large enough to be tapped on touch devices.
+
+### 8. Footer
+- **Copyright Information:**
+  - At the bottom of each page, a footer displays the copyright information with the current year: *Movie Database Management System &copy; [Year]*.
+  - The footer is centrally aligned and displayed in muted text to keep the focus on the main content.
+
+### 9. Accessibility Considerations
+- **Keyboard Navigation:**
+  - The system is fully navigable using the keyboard, ensuring accessibility for users who cannot use a mouse.
+- **Form Validation:**
+  - HTML5 validation is used to ensure that the user enters the correct data in forms (e.g., movie title, release date).
+- **Aria Labels and Screen Reader Support:**
+  - Each button and form element is appropriately labeled to ensure accessibility for screen readers.
+
+### 10. Technical Features
+- **Database Integration:**
+  - The system communicates with a MySQL database to retrieve and manage movie data. All data interactions are handled via PHP, with prepared statements to avoid SQL injection.
+- **Server-Side Validation:**
+  - PHP scripts perform additional server-side validation and sanitization of user inputs, ensuring security and integrity of the data.
+
+### 11. Security Features
+- **Home Button Security:**
+  - The Home button on each page ensures the user can quickly navigate to the index page, reducing the risk of confusion or accidental page navigation.
+- **Data Integrity:**
+  - Each user action (create, update, delete) is handled securely through backend PHP code, ensuring that only authorized users can make changes.
+
+### Conclusion
+The Movie Database Management System is designed with simplicity, accessibility, and usability in mind. The clean, responsive interface ensures that users can easily navigate the system and perform all necessary tasks related to movie database management. With intuitive forms, dynamic reports, and a focus on user experience, the system aims to streamline movie data handling while providing a visually appealing and functional user interface.
+
+
+## Web Interface Design
+
+### 1. Introduction
+The Movie Database Management System (MDMS) is designed to manage movie records, including functionality for adding, updating, deleting, and retrieving movies. The web interface serves as the point of interaction between the user and the backend system, providing a responsive and intuitive platform for users to manage the database. The interface was developed using a combination of front-end and back-end technologies to ensure that the system is both functional and user-friendly.
+
+### 2. Tools Used
+
+#### 2.1. **HTML5**
+- **Why:** HTML5 provides the core structure of the web pages. It was chosen for its support for modern web features such as semantic tags (`<article>`, `<section>`, `<header>`, etc.) that enhance accessibility and search engine optimization. HTML5 also provides native form validation features, which simplifies user input management.
+  
+#### 2.2. **CSS (Cascading Style Sheets)**
+- **Why:** CSS was used to style the pages and create a consistent design across the web interface. Custom styles were added for the layout, such as the background color (`#f0f8ff`), fonts, and spacing. This helps maintain a clean and aesthetically pleasing user interface. Additionally, CSS media queries were used to ensure that the design is responsive and adapts well to different screen sizes, such as mobile, tablet, and desktop views.
+
+#### 2.3. **Bootstrap**
+- **Why:** Bootstrap is a popular open-source framework that helps in building responsive and mobile-first websites quickly. It was used to design the overall layout, including navigation, form controls, and cards. The grid system provided by Bootstrap was used to create a flexible and responsive design for displaying the dashboard, forms, and reports. By using Bootstrap’s pre-designed UI components (buttons, forms, tables), I could speed up development and ensure consistency across the interface.
+
+#### 2.4. **PHP (Hypertext Preprocessor)**
+- **Why:** PHP was used as the server-side scripting language to handle data processing and interactions with the MySQL database. PHP is well-suited for web development and allows easy integration with MySQL for data retrieval, insertion, and deletion. PHP was also used for form handling and validation to ensure that user inputs are sanitized and securely processed before interacting with the database. Additionally, PHP enabled dynamic page generation, such as populating reports based on user-selected queries.
+
+#### 2.5. **MySQL**
+- **Why:** MySQL was chosen as the database management system because of its robustness, ease of use, and ability to handle relational data effectively. It supports the core functionality of the MDMS by storing movie records, user data, and other related information. MySQL’s SQL queries were used to manage CRUD (Create, Read, Update, Delete) operations on movie data.
+
+#### 2.6. **JavaScript (Optional)**
+- **Why:** While the core system does not rely heavily on JavaScript, it was used for some optional features, such as form validation on the client side or potentially enhancing the interactivity of reports (e.g., tables that allow sorting and filtering). By using JavaScript, I could ensure a smoother user experience and reduce the need for full-page reloads.
+
+### 3. Web Interface Implementation
+
+#### 3.1. **Page Layout**
+- The interface is divided into several pages, including the index page (dashboard), create/update movie pages, delete movie page, and reports page. Each page follows a consistent layout, with the main content area being the focus, while additional navigation and action buttons are strategically placed for easy access.
+  
+  **Example:**
+  - The **dashboard** page features cards displaying the various actions users can take, such as adding a movie, viewing movies, updating a movie, and deleting a movie. This card layout ensures that users can quickly understand their options and navigate to the corresponding pages.
+
+#### 3.2. **Forms**
+- On the create and update movie pages, forms are used to collect information about the movie. Each field is clearly labeled, and fields like the title, genre, director, and release date are required for movie creation or updates.
+  
+  **Example:**
+  - The **Create Movie** form uses standard form elements (`<input>`, `<select>`, `<textarea>`) to collect user input. PHP is used to process the form data and insert it into the database upon submission. PHP also ensures data validation, ensuring that only valid data is inserted into the database.
+
+#### 3.3. **Reports Page**
+- The reports page allows users to generate custom reports by selecting predefined SQL queries from a dropdown menu. The results of these queries are displayed in a table, which is dynamically generated by PHP.
+  
+  **Example:**
+  - Users can select a report type (e.g., movies by genre or top-rated movies), and the query results will be displayed in a Bootstrap-styled table. This table is responsive, making it easy to view on both desktop and mobile devices.
+
+#### 3.4. **Responsive Design**
+- To ensure a seamless experience across devices, the layout was designed using Bootstrap’s grid system, which adjusts based on screen size. For smaller screens, such as tablets and smartphones, the dashboard’s cards stack vertically, and form inputs resize to fit the screen.
+
+### 4. Challenges and Solutions
+
+#### 4.1. **Responsive Design**
+- One challenge was ensuring that the interface was usable on both large screens (desktop) and smaller devices (mobile/tablet). The Bootstrap grid system helped overcome this challenge, allowing for a flexible layout that adapts to different screen sizes.
+
+#### 4.2. **Form Validation**
+- Another challenge was ensuring that user input was validated both client-side and server-side. While HTML5 form validation was used for basic checks (e.g., required fields), PHP was used to validate data on the server-side to prevent incorrect or malicious data from being inserted into the database.
+
+### 5. Conclusion
+The web interface for the Movie Database Management System was implemented using a combination of modern front-end and back-end technologies. The tools and frameworks chosen—HTML5, CSS, Bootstrap, PHP, MySQL—provided the necessary features to build a responsive, user-friendly, and secure system. By utilizing pre-built components from Bootstrap and leveraging the flexibility of PHP and MySQL, the system was developed quickly and efficiently, while ensuring a seamless user experience across devices.
+
+The system’s interface is simple yet powerful, offering all necessary functions for managing movie data while providing users with an intuitive platform for interaction.
+
+
+## Screenshots 
+
+1. Home Page 
+
+Below is the home page of the website. It serves as the central hub to access the other pieces of the site. 
+![Home Page](../images/home.png)
+
+2. Create Page
+
+The create page allows the user to add a new movie to the database. This is limited only to movies for simplicity. 
+![Create Page](../images/create.png)
+
+3. Retrieve Page
+
+The retrieve page returns the items in the movie table with an available filter at the top of the page
+![Retrieve Page](../images/retrieve.png)
+
+4. Update Page
+
+The update page allows the user to update a previous record in the movies table using the associated ID. There is a form attached to the site to account for all of the information needed. 
+![Update Page](../images/update.png)
+
+5. Delete Page
+
+The delete page allows a user to delete a record from the movies table, the only information needed is the record ID
+![Delete Page](../images/delete.png)
+
+6. Reports Page
+
+The final page, the reports, contains a dropdown menu containing approx. 20 queries done on all of the information in the database. The queries are sorted by use such as general, user, admin, etc.
+![Reports Page](../images/reports.png)
+
+## Future Considerations  
+
+If more time were available, the project could be enhanced in several ways:
+
+### 1. **Feature Expansion**
+- **Integration with External APIs**: Fetch and sync data from movie/TV databases like TMDb or IMDb for richer and more up-to-date information.
+- **Event Ticketing System**: Allow users to book tickets for events directly from the platform.
+
+---
+
+### 2. **Reports and Analytics**
+- **Dynamic Report Generation**: Let administrators create custom reports via a query builder interface.
+- **Visualization**: Add visual dashboards for administrators with charts and graphs to monitor genre popularity, user activity, or event attendance trends.
+- **Predictive Analytics**: Use machine learning to predict user preferences, trends, and potential hits among movies and shows.
+
+---
+
+### 3. **Testing and Security**
+- **Comprehensive Testing**: Perform usability testing, unit testing, and integration testing to catch edge cases and ensure reliability.
+- **Security Enhancements**: Implement secure authentication (OAuth 2.0), data encryption, and protection against SQL injection and XSS attacks.
+
+---
+
+### 4. **Feedback System**
+- Introduce feedback collection for continuous improvement based on user and admin suggestions.
+
+---
+
+### 5. **Integration with Marketing Tools**
+- Implement email and SMS campaigns for event promotions, personalized updates, and engagement retention.
+
+---
+
+These steps would enhance the platform's usability, scalability, and appeal, turning it into a comprehensive, user-focused system for movie and TV enthusiasts.
+
+## Reflections 
+
+Overall, considering I am a bioinformatics student with no previous knowledge of databases or website design I think the project went as well as it could have. I ended up working alone on the entire project which made everything a lot more difficult, but also made getting everything to work together incredibly rewarding. I had almost given up on getting the website to work because I was struggling immensely and even ChatGPT was not helping. I ended up completely starting the website design over and with a lot of help from ChatGPT was able to get the site in a position I was happy with. It's nowhere near perfect, but the site works and contains everything in a organized manner. 
+
+For the most part, the database is exactly how I designed it at the beginning of the semester. The changes included linking tables so there were no foreign keys present in the main tables and some basic design choice changes. 
+
+The website turned out more simple than expected, mainly due to knowledge and time constraints. Unfortunately, I do not have the extra time as a graduate student to learn everything about producing a website outside class time. 
+
